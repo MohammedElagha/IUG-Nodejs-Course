@@ -6,18 +6,24 @@ const cities = require('./data/cities.json');
  * async processes
  */
 const getProductByName = (name, cb) => {
-    const product = products.find(product => product.name === name);
-    cb(product);
+    setTimeout(() => {
+        const product = products.find(product => product.name === name);
+        cb(product);
+    }, 500)
 }
 
 const getStoreById = (id, cb) => {
-    const store = stores.find(store => store.id === id);
-    cb(store);
+    setTimeout(() => {
+        const store = stores.find(store => store.id === id);
+        cb(store);
+    }, 500)
 }
 
 const getCityByName = (name, cb) => {
-    const city = cities.find(city => city.name === name);
-    cb(city);
+    setTimeout(() => {
+        const city = cities.find(city => city.name === name);
+        cb(city);
+    }, 500)
 }
 
 

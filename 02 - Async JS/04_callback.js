@@ -6,33 +6,39 @@ const cities = require('./data/cities.json');
  * async processes
  */
 const getProductByName = (name, cb) => {
-    const product = products.find(product => product.name === name);
-    if (product) {
-        cb(undefined, product);
-    } else {
-        err = {message: "Not found", code: 404};
-        cb(err, null);
-    }
+    setTimeout(() => {
+        const product = products.find(product => product.name === name);
+        if (product) {
+            cb(undefined, product);
+        } else {
+            err = {message: "Not found", code: 404};
+            cb(err, null);
+        }
+    }, 500)
 }
 
 const getStoreById = (id, cb) => {
-    const store = stores.find(store => store.id === id);
-    if (store) {
-        cb(undefined, store);
-    } else {
-        err = {message: "Not found", code: 404};
-        cb(err, null);
-    }
+    setTimeout(() => {
+        const store = stores.find(store => store.id === id);
+        if (store) {
+            cb(undefined, store);
+        } else {
+            err = {message: "Not found", code: 404};
+            cb(err, null);
+        }
+    }, 500)
 }
 
 const getCityByName = (name, cb) => {
-    const city = cities.find(city => city.name === name);
-    if (city) {
-        cb(undefined, city);
-    } else {
-        err = {message: "Not found", code: 404};
-        cb(err, null);
-    }
+    setTimeout(() => {
+        const city = cities.find(city => city.name === name);
+        if (city) {
+            cb(undefined, city);
+        } else {
+            err = {message: "Not found", code: 404};
+            cb(err, null);
+        }
+    }, 500)
 }
 
 
