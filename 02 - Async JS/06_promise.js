@@ -1,49 +1,50 @@
-const products = require('./data/products.json');
-const stores = require('./data/stores.json');
-const cities = require('./data/cities.json');
+const fs = require('fs');
 
 /**
  * async processes
  */
 const getProductByName = (name) => {
     return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            const product = products.find(product => product.name === name);
-            if (product) {
-                resolve(product)
-            } else {
-                err = {message: "Not found", code: 404};
-                reject(err)
-            }
-        }, 500)
+        const data = fs.readFileSync('./data/products.json');
+        const json = JSON.parse(data);
+        const product = json.find(product => product.name === name);
+
+        if (product) {
+            resolve(product);
+        } else {
+            err = {message: "Not found", code: 404};
+            reject(err);
+        }
     })
 }
 
 const getStoreById = (id) => {
     return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            const store = stores.find(store => store.id === id);
-            if (store) {
-                resolve(store)
-            } else {
-                err = {message: "Not found", code: 404};
-                reject(err)
-            }
-        }, 500)
+        const data = fs.readFileSync('./data/stores.json');
+        const json = JSON.parse(data);
+        const store = json.find(store => store.id === id);
+
+        if (store) {
+            resolve(store);
+        } else {
+            err = {message: "Not found", code: 404};
+            reject(err);
+        }
     })
 }
 
 const getCityByName = (name) => {
     return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            const city = cities.find(city => city.name === name);
-            if (city) {
-                resolve(city)
-            } else {
-                err = {message: "Not found", code: 404};
-                reject(err)
-            }
-        }, 500)
+        const data = fs.readFileSync('./data/cities.json');
+        const json = JSON.parse(data);
+        const city = json.find(city => city.name === name);
+
+        if (city) {
+            resolve(city);
+        } else {
+            err = {message: "Not found", code: 404};
+            reject(err);
+        }
     })
 }
 
