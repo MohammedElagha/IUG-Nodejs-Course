@@ -71,11 +71,15 @@ const getCityByName = (name) => {
 // promise handling by async
 
 const getCityFromProduct = async (productName) => {
-    const product = await getProductByName(productName)
-    const store = await getStoreById(product.store_id)
-    const city = await getCityByName(store.city)
+    try {
+        const product = await getProductByName(productName)
+        const store = await getStoreById(product.store_id)
+        const city = await getCityByName(store.city)
 
-    console.log(city)
+        console.log(city)
+    } catch (err) {
+        console.log(err.message)
+    }
 }
 
 getCityFromProduct('Tea Ahmad')
