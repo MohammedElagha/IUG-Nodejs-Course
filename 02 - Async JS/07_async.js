@@ -1,4 +1,3 @@
-const fs = require('fs');
 
 // async
 const getUSData = async () => {
