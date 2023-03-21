@@ -9,7 +9,7 @@ console.log(2);
 
 // async process
 /**
- * async maybe: timer, long-time process, and I/O operations (files and DB)
+ * async maybe: timer, long-time process, and I/O operations (files, DB, API's), async
  */
 setTimeout(() => {
     console.log('async');
