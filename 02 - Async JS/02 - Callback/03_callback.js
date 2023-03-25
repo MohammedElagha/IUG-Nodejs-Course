@@ -1,6 +1,6 @@
-const products = require('./data/products.json');
-const stores = require('./data/stores.json');
-const cities = require('./data/cities.json');
+const products = require('../data/products.json');
+const stores = require('../data/stores.json');
+const cities = require('../data/cities.json');
 
 /**
  * async processes
