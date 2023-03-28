@@ -2,12 +2,6 @@
  * import some functions from a file contains many
  */
 const math = require('./modules/math')
-// or
-// const { sum } = require('./modules/math')
-// const { multiply } = require('./modules/math')
-// or
-// const { sum, multiply } = require('./modules/math')
-
 
 const val1 = 5;
 const val2 = 7;
