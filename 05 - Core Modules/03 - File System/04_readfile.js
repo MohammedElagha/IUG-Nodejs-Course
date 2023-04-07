@@ -7,5 +7,5 @@ readFile('./data/text.txt', 'utf8', (err, data) => {
 
 
 // sync reading file
-const content = readFileSync('./data/text.txt')
+const content = readFileSync('./data/text.txt', 'utf8')
 console.log('sync', content)
