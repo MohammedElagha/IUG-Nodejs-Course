@@ -1,0 +1,38 @@
+# initiate npm
+npm init
+
+# install a package on production
+npm install package_name
+npm i package_name
+npm install --save package_name
+npm i --save package_name
+
+# install a package on dev
+npm install --save-dev package_name
+npm i --save-dev package_name
+
+# list all npm packages (installed and installed dependencies)
+npm list
+npm list --depth=some_number
+
+# show details of a installed package
+npm view package_name
+
+# install a package with a version
+npm i package_name@1.1.1
+
+# list out-of-date package (npm check updates)
+ncu
+
+# upgrade packages version (without installation)
+ncu -u
+
+# install/update all packages in package.json
+npm install
+
+# uninstall package
+npm uninstall package_name
+npm un package_name
+
+# install a package globally
+npm i -g package_name
