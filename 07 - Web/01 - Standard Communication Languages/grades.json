@@ -1,0 +1,12 @@
+[
+    {
+        "course_name": "Java",
+        "teacher_name": "Mohammed",
+        "grade": 88
+    },
+    {
+        "course_name": "Web",
+        "teacher_name": "Mohammed",
+        "grade": 70
+    }
+]

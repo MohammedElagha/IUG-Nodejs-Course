@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<grades>
+    <grade>
+        <course>Java</course>
+        <teacher>Mohammed</teacher>
+        <grade>88</grade>
+    </grade>
+    <grade>
+        <course>Web</course>
+        <teacher>Mohammed</teacher>
+        <grade>70</grade>
+    </grade>
+</grades>
