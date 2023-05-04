@@ -2,6 +2,16 @@ const express = require('express')
 
 const app = express();
 
+
+/**
+ * Middlewares
+ */
+app.use((req, res, next) => {
+    console.log(req.ip);
+    next();
+})
+
+
 /**
  * Routes
  */
