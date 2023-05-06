@@ -22,13 +22,7 @@ middleware(app);
 routes(app)
 
 app.use((req, res, next) => {
-    const error = createError(400);
-
-    // res.status(error.statusCode).json({
-    //     message: error.message
-    // })
-
-    next(error);
+    next(createError(404));
 })
 
 app.use((error, req, res, next) => {

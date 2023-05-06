@@ -35,7 +35,7 @@ const getBooksPagesCount = (req, res, next) => {
 const getOneBook = (req, res, next) => {
     const id = req.params.id;
     if (!ObjectId.isValid(id)) {
-        next(createError(400))
+        next(createError(400, 'Id is not valid'))
     }
 
     const _id = new ObjectId(req.params.id);
@@ -45,15 +45,14 @@ const getOneBook = (req, res, next) => {
             const book = collection.findOne({'_id': _id});
 
             if (!book) {
-                res.status(404).json({
-                    status: false,
-                    message: 'resource not found'
-                })
+                const error = createError(404, 'Resource is not found')
+                next(error)
             }
 
             res.json(book);
         } catch (err) {
-            next(createError(500))
+            const error = createError(500, err.message)
+            next(error);
         }
     })
 }
