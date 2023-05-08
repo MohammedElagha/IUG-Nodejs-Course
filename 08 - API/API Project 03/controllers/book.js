@@ -1,6 +1,6 @@
 const { dbConnection } = require('../configurations')
 const { ObjectId } = require('bson')
-const { createError } = require('http-errors')
+const createError = require('http-errors')
 
 const getBooks = (req, res, next) => {
     const pageNum = parseInt(req.query.page);

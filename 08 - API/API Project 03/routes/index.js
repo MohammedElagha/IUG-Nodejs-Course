@@ -1,4 +1,5 @@
 const bookRouter = require('./book')
+const authRouter = require('./auth')
 
 module.exports = (app) => {
     app.get('/', (req, res, next) => {
@@ -9,4 +10,6 @@ module.exports = (app) => {
     })
 
     app.use('/books', bookRouter)
+
+    app.use('/auth', authRouter);
 }

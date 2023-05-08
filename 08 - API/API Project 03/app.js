@@ -1,5 +1,5 @@
 const express = require('express')
-const { createError } = require('http-errors')
+const createError = require('http-errors')
 
 const middleware = require('./middlewares')
 const routes = require('./routes')
@@ -26,6 +26,7 @@ app.use((req, res, next) => {
 })
 
 app.use((error, req, res, next) => {
+    console.log(error)
     res.status(error.statusCode).json({
         status: false,
         message: error.message
