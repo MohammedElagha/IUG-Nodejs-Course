@@ -1,6 +1,6 @@
 const { dbConnection } = require('../configurations')
-const { userValidator } = require('../validators')
-const { hashSync } = require('bcryptjs')
+const { userValidator, loginValidator } = require('../validators')
+const { hashSync, compareSync } = require('bcryptjs')
 
 class User {
     constructor(userData) {
@@ -68,6 +68,35 @@ class User {
         } catch (err) {
             return false;
         }
+    }
+
+    static login(loginData) {
+        return new Promise((resolve, reject) => {
+            // validation
+            const validation = loginValidator.validate(loginData)
+            if (validation.error) {
+                const error = new Error(validation.error.message)
+                error.statusCode = 400
+                resolve(error)
+            }
+
+            // find user
+            dbConnection('users', async (collection) => {
+                try {
+                    const user = await collection.findOne({username: loginData.username})
+
+                    if (!user || !compareSync(loginData.password, user.password)) {
+                        const error = new Error('Wrong or not found username or password')
+                        error.statusCode = 401
+                        resolve(error)
+                    }
+
+                    resolve(user)
+                } catch (err) {
+                    reject(err)
+                }
+            })
+        })
     }
 }
 

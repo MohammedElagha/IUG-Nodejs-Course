@@ -36,6 +36,21 @@ const signup = (req, res, next) => {
     });
 }
 
+
+const login = (req, res, next) => {
+    User.login(req.body)
+        .then(result => {
+            if (result instanceof Error) {
+                next(createError(result.statusCode, result.message))
+            }
+
+            res.status(200).json(result)
+        })
+        .catch(err => {
+            next(createError(err.statusCode, err.message))
+        })
+}
+
 module.exports = {
-    signup
+    signup, login
 }
