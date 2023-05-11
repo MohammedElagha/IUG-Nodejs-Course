@@ -7,15 +7,26 @@ class User {
     }
 
     save() {
-        dbConnection('users', async (collection) => {
-            await collection.insertOne(this.userData);
-        })
+        try {
+            dbConnection('users', async (collection) => {
+                await collection.insertOne(this.userData)
+            })
+        } catch (err) {
+            return {
+                status: false,
+                error: err.message
+            };
+        }
+
+        return {
+            status: true
+        }
     }
 
     isExist() {
         return new Promise((resolve, reject) => {
-            try {
-                dbConnection('users', async (collection) => {
+            dbConnection('users', async (collection) => {
+                try {
                     const user = await collection.findOne({
                         '$or': [
                             {username: this.userData.username},
@@ -28,37 +39,41 @@ class User {
                             check: false
                         })
                     } else {
-                        if (this.userData.email === user.email) {
+                        if (user.email === this.userData.email) {
                             resolve({
                                 check: true,
-                                message: 'This email is already used'
+                                message: 'The email is already used'
                             })
-                        } else if (this.userData.username === user.username) {
+                        } else if (user.username === this.userData.username) {
                             resolve({
                                 check: true,
-                                message: 'this username is already used'
+                                message: 'The username is already used'
                             })
                         }
                     }
-                })
-            } catch (err) {
-                reject(err)
-            }
+                } catch (err) {
+                    reject(err)
+                }
+            })
         })
     }
 
     static validate(userData) {
-        const validation = userValidator.validate(userData);
-        return validation;
+        try {
+            const validationResult = userValidator.validate(userData)
+            return validationResult;
+        } catch (err) {
+            return false;
+        }
     }
 }
 
-const user = new User({
-    name: 'Ahmed Ali',
-    email: 'hamm@gmail.com',
-    username: 'aali',
-    password: '11111aaaaa'
-})
+// const user = new User({
+//     name: 'Ahmed Ali',
+//     email: 'hamm@gmail.com',
+//     username: 'aali',
+//     password: '11111aaaaa'
+// })
 
 // User.validate(user.userData)
 
