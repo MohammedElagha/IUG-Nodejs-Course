@@ -6,21 +6,20 @@ class User {
         this.userData = userData;
     }
 
-    save() {
-        try {
-            dbConnection('users', async (collection) => {
+    save(cb) {
+        dbConnection('users', async (collection) => {
+            try {
                 await collection.insertOne(this.userData)
-            })
-        } catch (err) {
-            return {
-                status: false,
-                error: err.message
-            };
-        }
-
-        return {
-            status: true
-        }
+                cb({
+                    status: true
+                })
+            } catch (err) {
+                cb({
+                    status: false,
+                    message: err.message
+                })
+            }
+        })
     }
 
     isExist() {

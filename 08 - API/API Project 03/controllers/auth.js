@@ -23,7 +23,17 @@ const signup = (req, res, next) => {
             next(createError(500, err.message))
         })
 
-
+    // insert user
+    user.save((status) => {
+        if (status.status) {
+            res.status(201).json({
+                status: true,
+                message: "User has been created successfully"
+            })
+        } else {
+            next(createError(500, status.message))
+        }
+    });
 }
 
 module.exports = {
