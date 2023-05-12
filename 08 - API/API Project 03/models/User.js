@@ -14,9 +14,13 @@ class User {
                 this.userData.password = hashedPassword
 
                 await collection.insertOne(this.userData)
-                cb({
-                    status: true
-                })
+                    .then(result => {
+                        cb({
+                            status: true,
+                            _user_id: result.insertedId
+                        })
+                    })
+
             } catch (err) {
                 cb({
                     status: false,

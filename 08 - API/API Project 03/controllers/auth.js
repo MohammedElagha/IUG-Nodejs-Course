@@ -1,4 +1,4 @@
-const { User } = require('../models')
+const { User, Reviewer } = require('../models')
 const createError = require('http-errors')
 
 const signup = (req, res, next) => {
@@ -26,9 +26,20 @@ const signup = (req, res, next) => {
     // insert user
     user.save((status) => {
         if (status.status) {
-            res.status(201).json({
-                status: true,
-                message: "User has been created successfully"
+            const reviewer = new Reviewer({
+                _user_id: status._user_id,
+                name: user.userData.name
+            })
+
+            reviewer.save((status) => {
+                if (status.status) {
+                    res.status(201).json({
+                        status: true,
+                        message: "User has been created successfully"
+                    })
+                } else {
+                    next(createError(500, status.message))
+                }
             })
         } else {
             next(createError(500, status.message))
