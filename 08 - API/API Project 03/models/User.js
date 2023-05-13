@@ -87,7 +87,10 @@ class User {
             // find user
             dbConnection('users', async (collection) => {
                 try {
-                    const user = await collection.findOne({username: loginData.username})
+                    const user = await collection.findOne(
+                        {username: loginData.username},
+                        {projection: {username: 1}}
+                    )
 
                     if (!user || !compareSync(loginData.password, user.password)) {
                         const error = new Error('Wrong or not found username or password')
