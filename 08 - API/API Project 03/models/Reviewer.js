@@ -9,7 +9,7 @@ class Reviewer {
         dbConnection('reviewers', async (collection) => {
             try {
                 await collection.updateOne(
-                    {name: this.reviewerData.name},
+                    {name: this.reviewerData.name, _user_id: null},
                     {$set: {_user_id: this.reviewerData._user_id, name: this.reviewerData.name}},
                     {upsert: true}
                 )
