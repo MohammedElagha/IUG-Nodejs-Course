@@ -89,7 +89,7 @@ class User {
                 try {
                     const user = await collection.findOne(
                         {username: loginData.username},
-                        {projection: {username: 1}}
+                        {projection: {username: 1, password: 1}}
                     )
 
                     if (!user || !compareSync(loginData.password, user.password)) {
