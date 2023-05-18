@@ -87,18 +87,59 @@ class User {
             // find user
             dbConnection('users', async (collection) => {
                 try {
-                    const user = await collection.findOne(
-                        {username: loginData.username},
-                        {projection: {username: 1, password: 1}}
-                    )
+                    const dbResult = await collection.aggregate([
+                        {
+                            $lookup: {
+                                from: 'reviewers',
+                                localField: '_id',
+                                foreignField: '_user_id',
+                                as: 'reviewer'
+                            }
+                        },
+                        {
+                            $match: {
+                                username: loginData.username
+                            }
+                        },
+                        {
+                            $limit: 1
+                        }
+                    ]).toArray()
 
-                    if (!user || !compareSync(loginData.password, user.password)) {
+
+                    // const user = await collection.findOne(
+                    //     {username: loginData.username},
+                    //     {projection: {username: 1, password: 1}}
+                    // )
+
+                    if (dbResult) {
+                        const user = dbResult[0]
+
+                        if (!user || !compareSync(loginData.password, user.password)) {
+                            const error = new Error('Wrong or not found username or password')
+                            error.statusCode = 401
+                            resolve(error)
+                        }
+
+                        user.reviewer = (user.reviewer) ? user.reviewer[0] : null
+                        resolve(user)
+                    } else {
                         const error = new Error('Wrong or not found username or password')
                         error.statusCode = 401
                         resolve(error)
                     }
 
-                    resolve(user)
+                    // dbConnection('reviewers', async (relatedCollection) => {
+                    //     const reviewer = await relatedCollection.findOne(
+                    //         {_user_id: user._id}
+                    //     )
+                    //
+                    //     user.reviewer = reviewer;
+                    //
+                    //     resolve(user);
+                    // })
+
+                    // resolve(user)
                 } catch (err) {
                     reject(err)
                 }
