@@ -1,6 +1,6 @@
 const { MongoClient } = require('mongodb')
 
-const _uri = "mongodb://localhost:27017"
+const _uri = process.env.MONGODB_URI
 
 const dbConnection = (collection, cb) => {
     MongoClient.connect(_uri)
