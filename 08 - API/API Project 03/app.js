@@ -13,7 +13,7 @@ process.on('unhandledRejection', (reason) => {
 /**
  * Middlewares
  */
-middleware(app);
+middleware.global(app);
 
 
 /**

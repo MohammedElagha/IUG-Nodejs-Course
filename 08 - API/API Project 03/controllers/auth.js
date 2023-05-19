@@ -1,5 +1,7 @@
 const { User, Reviewer } = require('../models')
 const createError = require('http-errors')
+const jwt = require('jsonwebtoken')
+const {readFileSync} = require('fs')
 
 const signup = (req, res, next) => {
     const userData = req.body;
@@ -55,7 +57,19 @@ const login = (req, res, next) => {
                 next(createError(result.statusCode, result.message))
             }
 
-            res.status(200).json(result)
+            // token
+            const secretKey = readFileSync('./configurations/private.key')
+            const token = jwt.sign(
+                {
+                    _id: result._id,
+                    username: result.username
+                }, secretKey
+            )
+
+            res.status(200).json({
+                status: true,
+                token: token
+            })
         })
         .catch(err => {
             next(createError(err.statusCode, err.message))
