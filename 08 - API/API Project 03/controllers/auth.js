@@ -62,7 +62,7 @@ const login = (req, res, next) => {
             const token = jwt.sign(
                 {
                     _id: result._id,
-                    username: result.username
+                    _reviewer_id: result.reviewer._id
                 }, secretKey
             )
 
