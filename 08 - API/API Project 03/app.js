@@ -31,8 +31,10 @@ app.use((req, res, next) => {
 app.use((error, req, res, next) => {
     console.log(error)
     res.status(error.statusCode).json({
-        status: false,
-        message: error.message
+        status: {
+            status: false,
+            message: error.message
+        }
     })
 })
 
