@@ -1,6 +1,7 @@
 const { Review, Book } = require('../models')
 const createError = require('http-errors')
 const {ObjectId} = require("bson");
+const {returnJson} = require("../my_modules/json_response");
 
 const add = (req, res, next) => {
     const reviewData = req.body
@@ -23,10 +24,7 @@ const add = (req, res, next) => {
 
         Book.refreshAvgRating(review.reviewData._book_id)
 
-        res.status(200).json({
-            status: true,
-            data: review
-        })
+        return returnJson(res, 200, true, "", review.reviewData)
     })
 }
 
@@ -48,7 +46,8 @@ const remove = (req, res, next) => {
 
                 Book.refreshAvgRating(review._book_id)
 
-                res.status(200).json(result);
+                return returnJson(res, 200, true, "", null)
+                // res.status(200).json(result);
             })
         })
         .catch(err => {

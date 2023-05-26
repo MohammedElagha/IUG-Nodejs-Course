@@ -1,6 +1,9 @@
 const express = require('express')
 const createError = require('http-errors')
 
+const { returnJson } = require('./my_modules/json_response')
+global.returnJson = returnJson
+
 const middleware = require('./middlewares')
 const routes = require('./routes')
 
